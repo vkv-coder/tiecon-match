@@ -114,7 +114,8 @@
 <script src="js/config.js"></script>
 <script>
 
-  const db = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+ const { createClient } = window.supabase;
+const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
   const selectedIndustries = new Set();
   const selectedDomains = new Set();

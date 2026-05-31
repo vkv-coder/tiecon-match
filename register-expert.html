@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expert Registration — TIEcon Match</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">TIEcon Match</div>
+    <div class="tagline">Connecting Industry Problems with Expert Solutions</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Expert / Startup Registration</h2>
+    <p class="subtitle">Register as a solution provider. Your profile will be reviewed and activated by our team before going live.</p>
+
+    <!-- Personal Info -->
+    <div class="form-group">
+      <label>Full Name <span class="required">*</span></label>
+      <input type="text" id="name" placeholder="Your full name">
+    </div>
+
+    <div class="form-group">
+      <label>Organisation / Startup Name</label>
+      <input type="text" id="organisation" placeholder="Company or startup name">
+    </div>
+
+    <div class="form-group">
+      <label>Designation</label>
+      <input type="text" id="designation" placeholder="e.g. Founder, CEO, Consultant">
+    </div>
+
+    <div class="form-group">
+      <label>Email <span class="required">*</span></label>
+      <input type="email" id="email" placeholder="your@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Phone <span class="required">*</span></label>
+      <input type="tel" id="phone" placeholder="10-digit mobile number">
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <input type="text" id="city" placeholder="Your city">
+    </div>
+
+    <div class="form-group">
+      <label>State</label>
+      <select id="state">
+        <option value="">-- Select State --</option>
+        <option>Andhra Pradesh</option><option>Assam</option>
+        <option>Bihar</option><option>Chhattisgarh</option>
+        <option>Delhi</option><option>Goa</option>
+        <option>Gujarat</option><option>Haryana</option>
+        <option>Himachal Pradesh</option><option>Jharkhand</option>
+        <option>Karnataka</option><option>Kerala</option>
+        <option>Madhya Pradesh</option><option>Maharashtra</option>
+        <option>Manipur</option><option>Meghalaya</option>
+        <option>Odisha</option><option>Punjab</option>
+        <option>Rajasthan</option><option>Tamil Nadu</option>
+        <option>Telangana</option><option>Uttar Pradesh</option>
+        <option>Uttarakhand</option><option>West Bengal</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <!-- Industry Types -->
+    <div class="form-group">
+      <label>Industries You Serve <span class="required">*</span></label>
+      <p style="font-size:13px;color:#888;margin-bottom:8px;">Select all that apply</p>
+      <div class="tag-grid" id="industryGrid">
+        <p style="color:#aaa;font-size:13px;">Loading...</p>
+      </div>
+    </div>
+
+    <!-- Problem Domains -->
+    <div class="form-group">
+      <label>Problem Areas You Can Solve <span class="required">*</span></label>
+      <p style="font-size:13px;color:#888;margin-bottom:8px;">Select all that apply</p>
+      <div class="tag-grid" id="domainGrid">
+        <p style="color:#aaa;font-size:13px;">Loading...</p>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>Describe Your Expertise <span class="required">*</span></label>
+      <textarea id="description" placeholder="Tell us about your expertise, past work, technologies you use, and types of problems you have solved..."></textarea>
+    </div>
+
+    <!-- Suggest new domain -->
+    <div class="form-group">
+      <label>Suggest a New Problem Domain (optional)</label>
+      <input type="text" id="suggestedDomain" placeholder="If your area is not listed above, suggest here">
+    </div>
+
+    <button class="btn btn-primary" onclick="submitExpert()">Submit Registration</button>
+
+    <div class="msg success" id="successMsg">
+      ✅ Thank you! Your registration has been received. Our team will review and contact you shortly.
+    </div>
+    <div class="msg error" id="errorMsg"></div>
+  </div>
+
+  <div class="footer">
+    Are you an Industry with a problem to solve?
+    <a href="register-industry.html" style="color:#e94560;">Register here →</a>
+  </div>
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script>
+  const supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+
+  const selectedIndustries = new Set();
+  const selectedDomains = new Set();
+
+  // Load industry types from DB
+  async function loadIndustries() {
+    const { data, error } = await supabase
+      .from('tie_industry_types')
+      .select('id, name')
+      .eq('is_active', true)
+      .order('name');
+
+    const grid = document.getElementById('industryGrid');
+    if (error || !data.length) {
+      grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load industries.</p>';
+      return;
+    }
+    grid.innerHTML = data.map(item => `
+      <label class="tag-item">
+        <input type="checkbox" value="${item.id}" onchange="toggleItem('industry', '${item.id}')">
+        ${item.name}
+      </label>
+    `).join('');
+  }
+
+  // Load problem domains from DB
+  async function loadDomains() {
+    const { data, error } = await supabase
+      .from('tie_problem_domains')
+      .select('id, name')
+      .eq('is_active', true)
+      .order('name');
+
+    const grid = document.getElementById('domainGrid');
+    if (error || !data.length) {
+      grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load domains.</p>';
+      return;
+    }
+    grid.innerHTML = data.map(item => `
+      <label class="tag-item">
+        <input type="checkbox" value="${item.id}" onchange="toggleItem('domain', '${item.id}')">
+        ${item.name}
+      </label>
+    `).join('');
+  }
+
+  function toggleItem(type, id) {
+    const set = type === 'industry' ? selectedIndustries : selectedDomains;
+    set.has(id) ? set.delete(id) : set.add(id);
+  }
+
+  async function submitExpert() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const description = document.getElementById('description').value.trim();
+
+    // Basic validation
+    if (!name || !email || !phone || !description) {
+      showMsg('error', 'Please fill all required fields.');
+      return;
+    }
+    if (selectedIndustries.size === 0) {
+      showMsg('error', 'Please select at least one industry.');
+      return;
+    }
+    if (selectedDomains.size === 0) {
+      showMsg('error', 'Please select at least one problem domain.');
+      return;
+    }
+
+    const btn = document.querySelector('.btn-primary');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    // Insert expert
+    const { data: expert, error: expertError } = await supabase
+      .from('tie_experts')
+      .insert([{
+        name,
+        organisation: document.getElementById('organisation').value.trim(),
+        designation: document.getElementById('designation').value.trim(),
+        email,
+        phone,
+        city: document.getElementById('city').value.trim(),
+        state: document.getElementById('state').value,
+        description,
+        suggested_domain: document.getElementById('suggestedDomain').value.trim(),
+        status: 'pending'
+      }])
+      .select()
+      .single();
+
+    if (expertError) {
+      showMsg('error', expertError.message.includes('unique') ?
+        'This email is already registered.' :
+        'Submission failed. Please try again.');
+      btn.textContent = 'Submit Registration';
+      btn.disabled = false;
+      return;
+    }
+
+    // Insert tags
+    const tags = [];
+    selectedIndustries.forEach(ind => {
+      selectedDomains.forEach(dom => {
+        tags.push({
+          expert_id: expert.id,
+          industry_type_id: ind,
+          problem_domain_id: dom
+        });
+      });
+    });
+
+    if (tags.length > 0) {
+      await supabase.from('tie_expert_tags').insert(tags);
+    }
+
+    // Show success
+    document.querySelector('.card').style.opacity = '0.4';
+    showMsg('success', '');
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  function showMsg(type, text) {
+    const el = document.getElementById(type + 'Msg');
+    el.textContent = text;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 5000);
+  }
+
+  // Init
+  loadIndustries();
+  loadDomains();
+</script>
+
+</body>
+</html>

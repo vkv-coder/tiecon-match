@@ -188,23 +188,22 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
     btn.textContent = 'Submitting...';
     btn.disabled = true;
 
-    const { data: expert, error: expertError } = await db
-      .from('tie_experts')
-      .insert([{
-        name,
-        organisation: document.getElementById('organisation').value.trim(),
-        designation: document.getElementById('designation').value.trim(),
-        email,
-        phone,
-        city: document.getElementById('city').value.trim(),
-        state: document.getElementById('state').value,
-        description,
-        suggested_domain: document.getElementById('suggestedDomain').value.trim(),
-        status: 'pending'
-      }])
-      .select()
-      .single();
-
+   const { data: expert, error: expertError } = await db
+  .from('tie_experts')
+  .insert([{
+    name,
+    organisation: document.getElementById('organisation').value.trim(),
+    designation: document.getElementById('designation').value.trim(),
+    email,
+    phone,
+    city: document.getElementById('city').value.trim(),
+    state: document.getElementById('state').value,
+    description,
+    suggested_domain: document.getElementById('suggestedDomain').value.trim(),
+    status: 'pending'
+  }])
+  .select('id')
+  .single();
     if (expertError) {
       showMsg('error', expertError.message.includes('unique') ?
         'This email is already registered.' :

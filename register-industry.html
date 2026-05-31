@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industry Registration — TIEcon Match</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">TIEcon Match</div>
+    <div class="tagline">Connecting Industry Problems with Expert Solutions</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Industry / Organisation Registration</h2>
+    <p class="subtitle">Register your organisation. Once approved by our team, you can submit your problem and get matched with the right expert.</p>
+
+    <div class="form-group">
+      <label>Your Full Name <span class="required">*</span></label>
+      <input type="text" id="name" placeholder="Contact person name">
+    </div>
+
+    <div class="form-group">
+      <label>Organisation Name <span class="required">*</span></label>
+      <input type="text" id="organisation" placeholder="Company / Factory / MSME name">
+    </div>
+
+    <div class="form-group">
+      <label>Your Designation <span class="required">*</span></label>
+      <input type="text" id="designation" placeholder="e.g. MD, Owner, GM, Plant Head">
+    </div>
+
+    <div class="form-group">
+      <label>Email <span class="required">*</span></label>
+      <input type="email" id="email" placeholder="your@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Phone <span class="required">*</span></label>
+      <input type="tel" id="phone" placeholder="10-digit mobile number">
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <input type="text" id="city" placeholder="Your city">
+    </div>
+
+    <div class="form-group">
+      <label>State</label>
+      <select id="state">
+        <option value="">-- Select State --</option>
+        <option>Andhra Pradesh</option><option>Assam</option>
+        <option>Bihar</option><option>Chhattisgarh</option>
+        <option>Delhi</option><option>Goa</option>
+        <option>Gujarat</option><option>Haryana</option>
+        <option>Himachal Pradesh</option><option>Jharkhand</option>
+        <option>Karnataka</option><option>Kerala</option>
+        <option>Madhya Pradesh</option><option>Maharashtra</option>
+        <option>Manipur</option><option>Meghalaya</option>
+        <option>Odisha</option><option>Punjab</option>
+        <option>Rajasthan</option><option>Tamil Nadu</option>
+        <option>Telangana</option><option>Uttar Pradesh</option>
+        <option>Uttarakhand</option><option>West Bengal</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Your Industry Type <span class="required">*</span></label>
+      <p style="font-size:13px;color:#888;margin-bottom:8px;">Select the one that best describes your industry</p>
+      <select id="industryType">
+        <option value="">-- Loading industries... --</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" onclick="submitIndustry()">Register Organisation</button>
+
+    <div class="msg success" id="successMsg">
+      ✅ Thank you! Your registration has been received. Our team will review and activate your account shortly. You will then be able to submit your problem.
+    </div>
+    <div class="msg error" id="errorMsg"></div>
+  </div>
+
+  <div class="footer">
+    Are you an Expert or Startup?
+    <a href="register-expert.html" style="color:#e94560;">Register here →</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script>
+
+  const { createClient } = window.supabase;
+  const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+
+  async function loadIndustries() {
+    const { data, error } = await db
+      .from('tie_industry_types')
+      .select('id, name')
+      .eq('is_active', true)
+      .order('name');
+
+    const select = document.getElementById('industryType');
+    if (error || !data || !data.length) {
+      select.innerHTML = '<option value="">Could not load — refresh page</option>';
+      return;
+    }
+    select.innerHTML = '<option value="">-- Select your industry --</option>' +
+      data.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
+  }
+
+  async function submitIndustry() {
+    const name = document.getElementById('name').value.trim();
+    const organisation = document.getElementById('organisation').value.trim();
+    const designation = document.getElementById('designation').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const industryType = document.getElementById('industryType').value;
+
+    if (!name || !organisation || !designation || !email || !phone) {
+      showMsg('error', 'Please fill all required fields.');
+      return;
+    }
+    if (!industryType) {
+      showMsg('error', 'Please select your industry type.');
+      return;
+    }
+
+    const btn = document.querySelector('.btn-primary');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    const { data, error } = await db
+      .from('tie_industries')
+      .insert([{
+        name,
+        organisation,
+        designation,
+        email,
+        phone,
+        city: document.getElementById('city').value.trim(),
+        state: document.getElementById('state').value,
+        industry_type_id: industryType,
+        status: 'pending'
+      }])
+      .select('id')
+      .single();
+
+    if (error) {
+      showMsg('error', error.message.includes('unique') ?
+        'This email is already registered.' :
+        'Submission failed. Please try again.');
+      btn.textContent = 'Register Organisation';
+      btn.disabled = false;
+      return;
+    }
+
+    document.querySelector('.card').style.opacity = '0.4';
+    document.getElementById('successMsg').style.display = 'block';
+    btn.textContent = 'Submitted ✓';
+  }
+
+  function showMsg(type, text) {
+    const el = document.getElementById(type + 'Msg');
+    el.textContent = text;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 5000);
+  }
+
+  loadIndustries();
+
+</script>
+</body>
+</html>

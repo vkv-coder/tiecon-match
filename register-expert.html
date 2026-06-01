@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expert Registration — TIEcon Match</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .success-box {
+      background: #1b5e20;
+      color: #ffffff;
+      border-left: 4px solid #69f0ae;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 16px;
+      display: none;
+    }
+    .error-box {
+      background: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #c62828;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-top: 16px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -98,10 +121,10 @@
 
     <button class="btn btn-primary" onclick="submitExpert()">Submit Registration</button>
 
-    <div class="msg success" id="successMsg">
-      ✅ Thank you! Your registration has been received. Our team will review and contact you shortly.
+    <div class="success-box" id="successMsg">
+      ✅ Thank you! Your registration has been received. Our team will review and contact you within 2-3 working days. A confirmation email has been sent to your inbox.
     </div>
-    <div class="msg error" id="errorMsg"></div>
+    <div class="error-box" id="errorMsg"></div>
   </div>
 
   <div class="footer">
@@ -114,8 +137,8 @@
 <script src="js/config.js"></script>
 <script>
 
- const { createClient } = window.supabase;
-const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+  const { createClient } = window.supabase;
+  const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
   const selectedIndustries = new Set();
   const selectedDomains = new Set();
@@ -129,7 +152,7 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
     const grid = document.getElementById('industryGrid');
     if (error || !data || !data.length) {
-      grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load industries. Please refresh.</p>';
+      grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load. Please refresh.</p>';
       return;
     }
     grid.innerHTML = data.map(item => `
@@ -149,7 +172,7 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
     const grid = document.getElementById('domainGrid');
     if (error || !data || !data.length) {
-      grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load domains. Please refresh.</p>';
+      grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load. Please refresh.</p>';
       return;
     }
     grid.innerHTML = data.map(item => `
@@ -172,15 +195,15 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
     const description = document.getElementById('description').value.trim();
 
     if (!name || !email || !phone || !description) {
-      showMsg('error', 'Please fill all required fields.');
+      showError('Please fill all required fields.');
       return;
     }
     if (selectedIndustries.size === 0) {
-      showMsg('error', 'Please select at least one industry.');
+      showError('Please select at least one industry.');
       return;
     }
     if (selectedDomains.size === 0) {
-      showMsg('error', 'Please select at least one problem domain.');
+      showError('Please select at least one problem domain.');
       return;
     }
 
@@ -188,24 +211,25 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
     btn.textContent = 'Submitting...';
     btn.disabled = true;
 
-   const { data: expert, error: expertError } = await db
-  .from('tie_experts')
-  .insert([{
-    name,
-    organisation: document.getElementById('organisation').value.trim(),
-    designation: document.getElementById('designation').value.trim(),
-    email,
-    phone,
-    city: document.getElementById('city').value.trim(),
-    state: document.getElementById('state').value,
-    description,
-    suggested_domain: document.getElementById('suggestedDomain').value.trim(),
-    status: 'pending'
-  }])
-  .select('id')
-  .single();
+    const { data: expert, error: expertError } = await db
+      .from('tie_experts')
+      .insert([{
+        name,
+        organisation: document.getElementById('organisation').value.trim(),
+        designation: document.getElementById('designation').value.trim(),
+        email,
+        phone,
+        city: document.getElementById('city').value.trim(),
+        state: document.getElementById('state').value,
+        description,
+        suggested_domain: document.getElementById('suggestedDomain').value.trim(),
+        status: 'pending'
+      }])
+      .select('id')
+      .single();
+
     if (expertError) {
-      showMsg('error', expertError.message.includes('unique') ?
+      showError(expertError.message.includes('unique') ?
         'This email is already registered.' :
         'Submission failed. Please try again.');
       btn.textContent = 'Submit Registration';
@@ -213,6 +237,7 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
       return;
     }
 
+    // Insert tags
     const tags = [];
     selectedIndustries.forEach(ind => {
       selectedDomains.forEach(dom => {
@@ -223,18 +248,30 @@ const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
         });
       });
     });
-
     if (tags.length > 0) {
       await db.from('tie_expert_tags').insert(tags);
     }
 
-    document.querySelector('.card').style.opacity = '0.4';
+    // Send acknowledgement email
+    try {
+      await fetch(CONFIG.APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, type: 'expert' })
+      });
+    } catch(e) {
+      console.log('Email send error:', e);
+    }
+
+    // Show success
+    document.querySelector('.card').style.opacity = '0.5';
     document.getElementById('successMsg').style.display = 'block';
     btn.textContent = 'Submitted ✓';
   }
 
-  function showMsg(type, text) {
-    const el = document.getElementById(type + 'Msg');
+  function showError(text) {
+    const el = document.getElementById('errorMsg');
     el.textContent = text;
     el.style.display = 'block';
     setTimeout(() => el.style.display = 'none', 5000);

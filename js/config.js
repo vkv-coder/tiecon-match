@@ -9,9 +9,9 @@ const CONFIG = {
   HF_MODEL: 'sentence-transformers/all-MiniLM-L6-v2',
   HF_API_URL: 'https://api-inference.huggingface.co/pipeline/feature-extraction/',
 
-  APPS_SCRIPT_URL: '',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbznt3-twhxSbHXcpdIWiLRZm65sj9paH_SICcoZu1zkWs7m2fQjJogO4KrKfvOP7zIb/exec',
 
-  ADMIN_EMAILS: ['vkvcoder.support@gmail.com'],
+  ADMIN_EMAILS: ['unigoods2026@gmail.com'],
 
   APP_NAME: 'TIEcon Match',
   APP_VERSION: '1.0.0'

@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Industry Registration — TIEcon Match</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .success-box {
+      background: #1b5e20;
+      color: #ffffff;
+      border-left: 4px solid #69f0ae;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 16px;
+      display: none;
+    }
+    .error-box {
+      background: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #c62828;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-top: 16px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -80,10 +103,10 @@
 
     <button class="btn btn-primary" onclick="submitIndustry()">Register Organisation</button>
 
-    <div class="msg success" id="successMsg">
-      ✅ Thank you! Your registration has been received. Our team will review and activate your account shortly. You will then be able to submit your problem.
+    <div class="success-box" id="successMsg">
+      ✅ Thank you! Your registration has been received. Our team will review and activate your account within 2-3 working days. A confirmation email has been sent to your inbox.
     </div>
-    <div class="msg error" id="errorMsg"></div>
+    <div class="error-box" id="errorMsg"></div>
   </div>
 
   <div class="footer">
@@ -124,11 +147,11 @@
     const industryType = document.getElementById('industryType').value;
 
     if (!name || !organisation || !designation || !email || !phone) {
-      showMsg('error', 'Please fill all required fields.');
+      showError('Please fill all required fields.');
       return;
     }
     if (!industryType) {
-      showMsg('error', 'Please select your industry type.');
+      showError('Please select your industry type.');
       return;
     }
 
@@ -153,7 +176,7 @@
       .single();
 
     if (error) {
-      showMsg('error', error.message.includes('unique') ?
+      showError(error.message.includes('unique') ?
         'This email is already registered.' :
         'Submission failed. Please try again.');
       btn.textContent = 'Register Organisation';
@@ -161,13 +184,26 @@
       return;
     }
 
-    document.querySelector('.card').style.opacity = '0.4';
+    // Send acknowledgement email
+    try {
+      await fetch(CONFIG.APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, type: 'industry' })
+      });
+    } catch(e) {
+      console.log('Email send error:', e);
+    }
+
+    // Show success
+    document.querySelector('.card').style.opacity = '0.5';
     document.getElementById('successMsg').style.display = 'block';
     btn.textContent = 'Submitted ✓';
   }
 
-  function showMsg(type, text) {
-    const el = document.getElementById(type + 'Msg');
+  function showError(text) {
+    const el = document.getElementById('errorMsg');
     el.textContent = text;
     el.style.display = 'block';
     setTimeout(() => el.style.display = 'none', 5000);

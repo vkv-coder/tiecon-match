@@ -3,38 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Industry Registration — TIEcon Match</title>
+  <title>Industry Registration — TIEcon Match-a-Thon</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .success-box {
-      background: #1b5e20;
-      color: #ffffff;
-      border-left: 4px solid #69f0ae;
-      padding: 16px 20px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 500;
-      margin-top: 16px;
-      display: none;
-    }
-    .error-box {
-      background: #ffebee;
-      color: #c62828;
-      border-left: 4px solid #c62828;
-      padding: 14px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      margin-top: 16px;
-      display: none;
-    }
+    .success-box { background: #1b5e20; color: #ffffff; border-left: 4px solid #69f0ae; padding: 16px 20px; border-radius: 8px; font-size: 15px; font-weight: 500; margin-top: 16px; display: none; }
+    .error-box { background: #ffebee; color: #c62828; border-left: 4px solid #c62828; padding: 14px 18px; border-radius: 8px; font-size: 14px; margin-top: 16px; display: none; }
+    .header { display: flex; align-items: center; gap: 12px; }
+    .header img { height: 42px; border-radius: 6px; }
   </style>
 </head>
 <body>
 
 <div class="header">
+  <img src="tie-logo.jpg" alt="TiE Vadodara"/>
   <div>
-    <div class="logo">TIEcon Match-a-Thon</div>
-    <div class="tagline">Connecting Industry Challenges  with Startup  Solutions</div>
+    <div class="logo">Match-a-Thon Platform</div>
+    <div class="tagline">Connecting Industry Challenges with Startup Solutions</div>
   </div>
 </div>
 
@@ -47,58 +31,43 @@
       <label>Your Full Name <span class="required">*</span></label>
       <input type="text" id="name" placeholder="Contact person name">
     </div>
-
     <div class="form-group">
       <label>Organisation Name <span class="required">*</span></label>
       <input type="text" id="organisation" placeholder="Company / Factory / MSME name">
     </div>
-
     <div class="form-group">
       <label>Your Designation <span class="required">*</span></label>
       <input type="text" id="designation" placeholder="e.g. MD, Owner, GM, Plant Head">
     </div>
-
     <div class="form-group">
       <label>Email <span class="required">*</span></label>
       <input type="email" id="email" placeholder="your@email.com">
     </div>
-
     <div class="form-group">
       <label>Phone <span class="required">*</span></label>
       <input type="tel" id="phone" placeholder="10-digit mobile number">
     </div>
-
     <div class="form-group">
       <label>City</label>
       <input type="text" id="city" placeholder="Your city">
     </div>
-
     <div class="form-group">
       <label>State</label>
       <select id="state">
         <option value="">-- Select State --</option>
-        <option>Andhra Pradesh</option><option>Assam</option>
-        <option>Bihar</option><option>Chhattisgarh</option>
-        <option>Delhi</option><option>Goa</option>
-        <option>Gujarat</option><option>Haryana</option>
-        <option>Himachal Pradesh</option><option>Jharkhand</option>
-        <option>Karnataka</option><option>Kerala</option>
-        <option>Madhya Pradesh</option><option>Maharashtra</option>
-        <option>Manipur</option><option>Meghalaya</option>
-        <option>Odisha</option><option>Punjab</option>
-        <option>Rajasthan</option><option>Tamil Nadu</option>
-        <option>Telangana</option><option>Uttar Pradesh</option>
-        <option>Uttarakhand</option><option>West Bengal</option>
+        <option>Andhra Pradesh</option><option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
+        <option>Delhi</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
+        <option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+        <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+        <option>Odisha</option><option>Punjab</option><option>Rajasthan</option><option>Tamil Nadu</option>
+        <option>Telangana</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
         <option>Other</option>
       </select>
     </div>
-
     <div class="form-group">
       <label>Your Industry Type <span class="required">*</span></label>
       <p style="font-size:13px;color:#888;margin-bottom:8px;">Select the one that best describes your industry</p>
-      <select id="industryType">
-        <option value="">-- Loading industries... --</option>
-      </select>
+      <select id="industryType"><option value="">-- Loading industries... --</option></select>
     </div>
 
     <button class="btn btn-primary" onclick="submitIndustry()">Register Organisation</button>
@@ -110,7 +79,7 @@
   </div>
 
   <div class="footer">
-    Are you a  Startup?
+    Are you a Startup?
     <a href="register-startup.html" style="color:#e94560;">Register here →</a>
   </div>
 </div>
@@ -118,24 +87,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script>
-
   const { createClient } = window.supabase;
   const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
   async function loadIndustries() {
-    const { data, error } = await db
-      .from('tie_industry_types')
-      .select('id, name')
-      .eq('is_active', true)
-      .order('name');
-
+    const { data, error } = await db.from('tie_industry_types').select('id, name').eq('is_active', true).order('name');
     const select = document.getElementById('industryType');
-    if (error || !data || !data.length) {
-      select.innerHTML = '<option value="">Could not load — refresh page</option>';
-      return;
-    }
-    select.innerHTML = '<option value="">-- Select your industry --</option>' +
-      data.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
+    if (error || !data || !data.length) { select.innerHTML = '<option value="">Could not load — refresh page</option>'; return; }
+    select.innerHTML = '<option value="">-- Select your industry --</option>' + data.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
   }
 
   async function submitIndustry() {
@@ -146,57 +105,28 @@
     const phone = document.getElementById('phone').value.trim();
     const industryType = document.getElementById('industryType').value;
 
-    if (!name || !organisation || !designation || !email || !phone) {
-      showError('Please fill all required fields.');
-      return;
-    }
-    if (!industryType) {
-      showError('Please select your industry type.');
-      return;
-    }
+    if (!name || !organisation || !designation || !email || !phone) { showError('Please fill all required fields.'); return; }
+    if (!industryType) { showError('Please select your industry type.'); return; }
 
     const btn = document.querySelector('.btn-primary');
-    btn.textContent = 'Submitting...';
-    btn.disabled = true;
+    btn.textContent = 'Submitting...'; btn.disabled = true;
 
-    const { data, error } = await db
-      .from('tie_industries')
-      .insert([{
-        name,
-        organisation,
-        designation,
-        email,
-        phone,
-        city: document.getElementById('city').value.trim(),
-        state: document.getElementById('state').value,
-        industry_type_id: industryType,
-        status: 'pending'
-      }])
-      .select('id')
-      .single();
+    const { data, error } = await db.from('tie_industries').insert([{
+      name, organisation, designation, email, phone,
+      city: document.getElementById('city').value.trim(),
+      state: document.getElementById('state').value,
+      industry_type_id: industryType, status: 'pending'
+    }]).select('id').single();
 
     if (error) {
-      showError(error.message.includes('unique') ?
-        'This email is already registered.' :
-        'Submission failed. Please try again.');
-      btn.textContent = 'Register Organisation';
-      btn.disabled = false;
-      return;
+      showError(error.message.includes('unique') ? 'This email is already registered.' : 'Submission failed. Please try again.');
+      btn.textContent = 'Register Organisation'; btn.disabled = false; return;
     }
 
-    // Send acknowledgement email
     try {
-      await fetch(CONFIG.APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, type: 'industry' })
-      });
-    } catch(e) {
-      console.log('Email send error:', e);
-    }
+      await fetch(CONFIG.APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, type: 'industry' }) });
+    } catch(e) { console.log('Email send error:', e); }
 
-    // Show success
     document.querySelector('.card').style.opacity = '0.5';
     document.getElementById('successMsg').style.display = 'block';
     btn.textContent = 'Submitted ✓';
@@ -204,13 +134,11 @@
 
   function showError(text) {
     const el = document.getElementById('errorMsg');
-    el.textContent = text;
-    el.style.display = 'block';
+    el.textContent = text; el.style.display = 'block';
     setTimeout(() => el.style.display = 'none', 5000);
   }
 
   loadIndustries();
-
 </script>
 </body>
 </html>

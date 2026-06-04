@@ -21,21 +21,23 @@ body {
   padding: 16px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
 }
-
+.header img {
+  height: 60px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
 .header .logo {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #e94560;
   letter-spacing: 1px;
 }
-
 .header .tagline {
   font-size: 13px;
   color: #aaa;
 }
-
 /* Page container */
 .container {
   max-width: 720px;

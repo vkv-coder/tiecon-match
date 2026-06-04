@@ -24,7 +24,7 @@ body {
 }
 .header img {
   height: auto;
-  width: 260px;
+  width: 300px;
   border-radius: 0;
   flex-shrink: 0;
 }

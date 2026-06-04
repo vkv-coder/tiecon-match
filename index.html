@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TIEcon Vadodara Matchathon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <title>TIEcon Vadodara Match-a-Thon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --primary: #0a2540;
       --primary-light: #1a3a5c;
       --accent: #e63946;
       --gold: #f4a11d;
-      --gold-light: #fdf3e3;
       --bg: #f7f5f0;
       --card: #ffffff;
       --text: #1a1a2e;
@@ -31,11 +30,11 @@
       overflow-x: hidden;
     }
 
-    /* ===================== HEADER ===================== */
+    /* HEADER */
     header {
       background: var(--primary);
       padding: 0 40px;
-      height: 70px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -45,59 +44,36 @@
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .logo-area { display: flex; align-items: center; gap: 14px; }
 
     .logo-placeholder {
-      width: 48px;
-      height: 48px;
+      width: 44px; height: 44px;
       border-radius: 10px;
       background: rgba(244,161,29,0.15);
       border: 2px dashed rgba(244,161,29,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      color: var(--gold);
-      text-align: center;
-      line-height: 1.2;
-      font-weight: 600;
-      letter-spacing: 0.03em;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; color: var(--gold);
+      text-align: center; line-height: 1.2;
+      font-weight: 600; letter-spacing: 0.03em;
     }
 
     .brand-text .name {
       font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: white;
-      letter-spacing: -0.01em;
+      font-size: 1rem; font-weight: 800; color: white;
     }
     .brand-text .name span { color: var(--gold); }
-    .brand-text .sub {
-      font-size: 0.72rem;
-      color: #94a3b8;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
+    .brand-text .sub { font-size: 0.68rem; color: #94a3b8; letter-spacing: 0.04em; text-transform: uppercase; }
 
     .header-badge {
-      background: var(--gold);
-      color: var(--primary);
-      font-family: 'Syne', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 20px;
-      letter-spacing: 0.04em;
+      background: var(--gold); color: var(--primary);
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 20px; letter-spacing: 0.04em;
     }
 
-    /* ===================== HERO ===================== */
+    /* HERO */
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, #0d3460 60%, #1a3a5c 100%);
-      padding: 80px 40px 100px;
+      padding: 56px 40px 64px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -105,23 +81,9 @@
 
     .hero::before {
       content: '';
-      position: absolute;
-      top: -50%;
-      left: -20%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(244,161,29,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -30%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(230,57,70,0.06) 0%, transparent 70%);
+      position: absolute; top: -40%; left: -15%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(244,161,29,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -129,269 +91,183 @@
       display: inline-block;
       background: rgba(244,161,29,0.15);
       border: 1px solid rgba(244,161,29,0.3);
-      color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 6px 18px;
-      border-radius: 20px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s ease both;
+      color: var(--gold); font-size: 0.75rem; font-weight: 600;
+      padding: 5px 16px; border-radius: 20px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease both;
     }
 
     .hero h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
-      color: white;
-      line-height: 1.1;
-      margin-bottom: 16px;
-      animation: fadeUp 0.6s 0.1s ease both;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800; color: white; line-height: 1.15;
+      margin-bottom: 12px;
+      animation: fadeUp 0.5s 0.1s ease both;
     }
-
     .hero h1 span { color: var(--gold); }
 
     .hero p {
-      color: #94a3b8;
-      font-size: 1.05rem;
-      max-width: 520px;
-      margin: 0 auto 48px;
-      line-height: 1.7;
-      animation: fadeUp 0.6s 0.2s ease both;
+      color: #94a3b8; font-size: 0.92rem;
+      max-width: 480px; margin: 0 auto 40px;
+      line-height: 1.65;
+      animation: fadeUp 0.5s 0.2s ease both;
     }
 
-    /* ===================== STATS ===================== */
+    /* STATS */
     .stats-strip {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      max-width: 800px;
-      margin: 0 auto;
+      display: flex; justify-content: center;
+      max-width: 720px; margin: 0 auto;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius);
-      overflow: hidden;
-      animation: fadeUp 0.6s 0.3s ease both;
+      border-radius: var(--radius); overflow: hidden;
+      animation: fadeUp 0.5s 0.3s ease both;
     }
 
     .stat {
-      flex: 1;
-      padding: 20px 16px;
-      text-align: center;
+      flex: 1; padding: 18px 12px; text-align: center;
       border-right: 1px solid rgba(255,255,255,0.1);
-      transition: background 0.2s;
     }
     .stat:last-child { border-right: none; }
-    .stat:hover { background: rgba(255,255,255,0.05); }
 
     .stat-num {
       font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 6px;
+      font-size: 1.7rem; font-weight: 800;
+      line-height: 1; margin-bottom: 5px;
     }
+    .stat-num.gold { color: var(--gold); }
+    .stat-num.accent { color: #ff6b7a; }
 
     .stat-label {
-      font-size: 0.72rem;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 500;
+      font-size: 0.68rem; color: #94a3b8;
+      text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500;
     }
 
-    /* ===================== MAIN CARDS ===================== */
+    /* MAIN SECTION */
     .section {
-      max-width: 960px;
-      margin: -32px auto 0;
-      padding: 0 24px 60px;
-      position: relative;
-      z-index: 2;
+      max-width: 860px;
+      margin: -28px auto 0;
+      padding: 0 24px 48px;
+      position: relative; z-index: 2;
     }
 
-    .section-title {
+    /* TWO BIG BUTTONS */
+    .cta-title {
       font-family: 'Syne', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary);
-      text-align: center;
-      margin-bottom: 8px;
-      margin-top: 48px;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--primary); text-align: center;
+      margin-top: 44px; margin-bottom: 6px;
     }
 
-    .section-sub {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 32px;
+    .cta-sub {
+      text-align: center; color: var(--muted);
+      font-size: 0.85rem; margin-bottom: 24px;
     }
 
-    .cards-grid {
+    .cta-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 48px;
+      gap: 20px;
+      margin-bottom: 40px;
     }
 
-    .reg-card {
+    .cta-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 32px 20px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      border: none;
+    }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.16); }
+
+    .cta-btn .btn-icon { font-size: 2.2rem; }
+    .cta-btn .btn-title { font-size: 1.05rem; }
+    .cta-btn .btn-sub { font-size: 0.78rem; font-weight: 400; opacity: 0.8; font-family: 'DM Sans', sans-serif; }
+
+    .btn-startup { background: var(--primary); color: white; }
+    .btn-industry { background: var(--gold); color: var(--primary); }
+
+    /* HOW IT WORKS */
+    .how-strip {
+      display: flex;
+      gap: 0;
       background: var(--card);
       border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
       overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-    }
-    .reg-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.14);
+      margin-bottom: 36px;
     }
 
-    .reg-card-top {
-      padding: 32px 28px 24px;
+    .how-item {
+      flex: 1;
+      padding: 20px 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      position: relative;
     }
+    .how-item:last-child { border-right: none; }
 
-    .card-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 18px;
-    }
-
-    .startup-card .card-icon { background: #e8f4fd; }
-    .industry-card .card-icon { background: #fdf3e3; }
-
-    .reg-card h3 {
+    .how-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .how-num {
+      position: absolute; top: 10px; left: 12px;
       font-family: 'Syne', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 8px;
+      font-size: 0.65rem; font-weight: 800;
+      color: var(--gold); letter-spacing: 0.04em;
     }
-
-    .reg-card p {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .card-features {
-      list-style: none;
-      margin-bottom: 8px;
-    }
-    .card-features li {
-      font-size: 0.82rem;
-      color: var(--text);
-      padding: 4px 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-features li::before {
-      content: '✓';
-      color: var(--success);
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-
-    .reg-card-bottom {
-      padding: 16px 28px 24px;
-    }
-
-    .btn-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
+    .how-title {
       font-family: 'Syne', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 4px;
     }
+    .how-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.45; }
 
-    .startup-card .btn-card {
-      background: var(--primary);
-      color: white;
-    }
-    .startup-card .btn-card:hover { background: var(--primary-light); }
-
-    .industry-card .btn-card {
-      background: var(--gold);
-      color: var(--primary);
-    }
-    .industry-card .btn-card:hover { background: #e09510; }
-
-    /* ===================== INDUSTRY LOGIN ===================== */
+    /* INDUSTRY LOGIN */
     .login-section {
       background: var(--card);
       border-radius: var(--radius);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
       overflow: hidden;
-      margin-bottom: 48px;
     }
 
     .login-header {
-      background: var(--primary);
-      color: white;
-      padding: 18px 28px;
+      background: var(--primary); color: white;
+      padding: 16px 24px;
       font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size: 0.92rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
     }
 
-    .login-body { padding: 28px; }
+    .login-body { padding: 22px 24px; }
 
-    .login-body p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin-bottom: 18px;
+    .login-body .note {
+      font-size: 0.84rem; color: var(--muted); margin-bottom: 16px;
     }
+    .login-body .note a { color: var(--accent); font-weight: 600; text-decoration: none; }
 
-    .login-row {
-      display: flex;
-      gap: 10px;
-      align-items: flex-end;
-    }
-
+    .login-row { display: flex; gap: 10px; align-items: flex-end; }
     .login-row .fg { flex: 1; }
 
     label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      display: block; font-size: 0.75rem; font-weight: 600;
+      color: var(--primary); margin-bottom: 5px;
+      text-transform: uppercase; letter-spacing: 0.04em;
     }
 
     input[type="email"] {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text);
-      background: #fafafa;
-      outline: none;
+      width: 100%; padding: 11px 13px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+      color: var(--text); background: #fafafa; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     input[type="email"]:focus {
@@ -401,153 +277,62 @@
     }
 
     .btn-login {
-      height: 46px;
-      padding: 0 24px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      height: 44px; padding: 0 22px;
+      background: var(--accent); color: white;
+      border: none; border-radius: 8px;
+      font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px;
     }
     .btn-login:hover { background: #c1121f; transform: translateY(-1px); }
     .btn-login:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     .alert {
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      margin-top: 12px;
-      display: none;
+      padding: 9px 13px; border-radius: 8px;
+      font-size: 0.82rem; margin-top: 10px; display: none;
     }
     .alert.show { display: block; }
     .alert-error { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
 
-    /* ===================== HOW IT WORKS ===================== */
-    .how-section {
-      background: var(--primary);
-      padding: 60px 40px;
-      margin-top: 20px;
-    }
-
-    .how-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: white;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .how-section .sub {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 0.9rem;
-      margin-bottom: 48px;
-    }
-
-    .steps-row {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .steps-row::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: 10%;
-      width: 80%;
-      height: 2px;
-      background: rgba(244,161,29,0.2);
-    }
-
-    .step-item {
-      flex: 1;
-      text-align: center;
-      padding: 0 12px;
-      position: relative;
-    }
-
-    .step-circle {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: rgba(244,161,29,0.1);
-      border: 2px solid rgba(244,161,29,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      margin: 0 auto 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-item h4 {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 6px;
-    }
-
-    .step-item p {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      line-height: 1.5;
-    }
-
-    /* ===================== FOOTER ===================== */
+    /* FOOTER */
     footer {
-      background: #07192d;
-      color: #64748b;
-      text-align: center;
-      padding: 24px;
-      font-size: 0.78rem;
+      background: #07192d; color: #64748b;
+      text-align: center; padding: 20px;
+      font-size: 0.75rem; margin-top: 20px;
     }
     footer a { color: var(--gold); text-decoration: none; }
 
-    /* ===================== SPINNER ===================== */
+    /* SPINNER */
     .spinner {
-      width: 16px; height: 16px;
+      width: 15px; height: 15px;
       border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
+      border-top-color: white; border-radius: 50%;
+      animation: spin 0.7s linear infinite; display: none;
     }
     .spinner.show { display: inline-block; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 640px) {
-      header { padding: 0 20px; }
-      .hero { padding: 48px 20px 80px; }
+    /* MOBILE */
+    @media (max-width: 600px) {
+      header { padding: 0 16px; height: 52px; }
+      .header-badge { display: none; }
+      .hero { padding: 36px 16px 52px; }
       .stats-strip { flex-wrap: wrap; }
-      .stat { flex: 1 1 45%; border-bottom: 1px solid rgba(255,255,255,0.1); }
-      .cards-grid { grid-template-columns: 1fr; }
-      .section { padding: 0 16px 40px; }
-      .steps-row { flex-wrap: wrap; gap: 24px; }
-      .steps-row::before { display: none; }
+      .stat { flex: 1 1 45%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 14px 8px; }
+      .stat-num { font-size: 1.4rem; }
+      .section { padding: 0 12px 32px; }
+      .cta-buttons { grid-template-columns: 1fr; gap: 14px; }
+      .cta-btn { padding: 24px 16px; flex-direction: row; justify-content: flex-start; gap: 16px; }
+      .how-strip { flex-wrap: wrap; }
+      .how-item { flex: 1 1 45%; }
       .login-row { flex-direction: column; }
       .btn-login { width: 100%; justify-content: center; }
-      .how-section { padding: 40px 20px; }
+      .login-body { padding: 16px; }
     }
   </style>
 </head>
@@ -559,148 +344,121 @@
     <div class="logo-placeholder">LOGO<br>HERE</div>
     <div class="brand-text">
       <div class="name">TIEcon <span>Vadodara</span></div>
-      <div class="sub">Matchathon Platform</div>
+      <div class="sub">Match-a-Thon Platform</div>
     </div>
   </div>
-  <div class="header-badge">🚀 AI-Powered Matching</div>
+  <div class="header-badge">🤖 AI-Powered Matching</div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">✦ TIEcon Vadodara Matchathon 2025</div>
+  <div class="hero-tag">✦ TIEcon Vadodara Match-a-Thon</div>
   <h1>Connect <span>Startups</span> with<br/>Industry Challenges</h1>
-  <p>AI-powered matchmaking platform that connects innovative startups with industry partners seeking real-world solutions.</p>
+  <p>AI-powered matchmaking that connects innovative startups with industry partners seeking real-world solutions.</p>
 
-  <!-- LIVE STATS -->
   <div class="stats-strip">
     <div class="stat">
-      <div class="stat-num" id="statStartups">—</div>
+      <div class="stat-num gold" id="statStartups">—</div>
       <div class="stat-label">Startups Registered</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statIndustries">—</div>
+      <div class="stat-num gold" id="statIndustries">—</div>
       <div class="stat-label">Industries Registered</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statChallenges">—</div>
+      <div class="stat-num gold" id="statChallenges">—</div>
       <div class="stat-label">Challenges Submitted</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statMatched">—</div>
+      <div class="stat-num accent" id="statMatched">—</div>
       <div class="stat-label">Matches in Progress</div>
     </div>
   </div>
 </div>
 
-<!-- MAIN SECTION -->
+<!-- MAIN -->
 <div class="section">
 
-  <div class="section-title">Who are you?</div>
-  <div class="section-sub">Choose your role to get started on the platform</div>
+  <div class="cta-title">Who are you?</div>
+  <div class="cta-sub">Select your role to get started</div>
 
-  <div class="cards-grid">
-
-    <!-- STARTUP CARD -->
-    <a href="register-expert.html" class="reg-card startup-card">
-      <div class="reg-card-top">
-        <div class="card-icon">🚀</div>
-        <h3>I'm a Startup</h3>
-        <p>Register your startup and get matched with industry partners who need your innovation and expertise.</p>
-        <ul class="card-features">
-          <li>Create your startup profile</li>
-          <li>List your domains & expertise</li>
-          <li>Get matched to real challenges</li>
-          <li>Connect with industry leaders</li>
-        </ul>
-      </div>
-      <div class="reg-card-bottom">
-        <span class="btn-card">Register as Startup →</span>
+  <div class="cta-buttons">
+    <a href="register-startup.html" class="cta-btn btn-startup">
+      <span class="btn-icon">🚀</span>
+      <div>
+        <div class="btn-title">Register as Startup</div>
+        <div class="btn-sub">Share your expertise & get matched</div>
       </div>
     </a>
-
-    <!-- INDUSTRY CARD -->
-    <div class="reg-card industry-card" onclick="document.getElementById('industryLoginSection').scrollIntoView({behavior:'smooth'})">
-      <div class="reg-card-top">
-        <div class="card-icon">🏭</div>
-        <h3>I'm an Industry Partner</h3>
-        <p>Register your organisation and submit your business challenges to find the best startup solutions.</p>
-        <ul class="card-features">
-          <li>Register your organisation</li>
-          <li>Submit business challenges</li>
-          <li>AI finds matching startups</li>
-          <li>Connect & collaborate</li>
-        </ul>
+    <a href="register-industry.html" class="cta-btn btn-industry">
+      <span class="btn-icon">🏭</span>
+      <div>
+        <div class="btn-title">Register as Industry</div>
+        <div class="btn-sub">Submit challenges & find solutions</div>
       </div>
-      <div class="reg-card-bottom">
-        <span class="btn-card">Register / Submit Challenge ↓</span>
-      </div>
-    </div>
-
+    </a>
   </div>
 
-  <!-- INDUSTRY LOGIN / REGISTER -->
-  <div class="login-section" id="industryLoginSection">
-    <div class="login-header">
-      🏭 Industry Partner — Register or Submit a Challenge
+  <!-- HOW IT WORKS -->
+  <div class="how-strip">
+    <div class="how-item">
+      <div class="how-num">01</div>
+      <div class="how-icon">📝</div>
+      <div class="how-title">Register</div>
+      <div class="how-desc">Startups & Industries register on the platform</div>
     </div>
-    <div class="login-body">
-      <p>New to the platform? <a href="register-industry.html" style="color:var(--accent);font-weight:600;">Register your organisation first →</a></p>
-      <p>Already registered and approved? Enter your email below to submit a challenge:</p>
+    <div class="how-item">
+      <div class="how-num">02</div>
+      <div class="how-icon">✅</div>
+      <div class="how-title">Get Approved</div>
+      <div class="how-desc">TIEcon team reviews & approves profiles</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">03</div>
+      <div class="how-icon">💡</div>
+      <div class="how-title">Submit Challenge</div>
+      <div class="how-desc">Industry partners describe their business challenge</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">04</div>
+      <div class="how-icon">🤖</div>
+      <div class="how-title">AI Matches</div>
+      <div class="how-desc">Our AI finds the best matching startups</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">05</div>
+      <div class="how-icon">🤝</div>
+      <div class="how-title">Connect</div>
+      <div class="how-desc">Both parties are notified & introduced</div>
+    </div>
+  </div>
 
+  <!-- INDUSTRY LOGIN -->
+  <div class="login-section" id="industryLoginSection">
+    <div class="login-header">🏭 Already Registered? Submit a Challenge</div>
+    <div class="login-body">
+      <p class="note">
+        New here? <a href="register-industry.html">Register your organisation first →</a>
+        &nbsp;|&nbsp; Already approved? Enter your email to submit a challenge:
+      </p>
       <div class="login-row">
         <div class="fg">
           <label>Registered Email</label>
-          <input type="email" id="loginEmail" placeholder="your@company.com" />
+          <input type="email" id="loginEmail" placeholder="your@company.com"/>
         </div>
         <button class="btn-login" id="loginBtn" onclick="handleLogin()">
           <span class="spinner" id="loginSpinner"></span>
           <span id="loginBtnText">Submit Challenge →</span>
         </button>
       </div>
-
       <div class="alert alert-error" id="loginAlert"></div>
     </div>
   </div>
 
 </div>
 
-<!-- HOW IT WORKS -->
-<div class="how-section">
-  <h2>How It Works</h2>
-  <p class="sub">From registration to connection — powered by AI</p>
-
-  <div class="steps-row">
-    <div class="step-item">
-      <div class="step-circle">📝</div>
-      <h4>Register</h4>
-      <p>Startups & Industries register on the platform</p>
-    </div>
-    <div class="step-item">
-      <div class="step-circle">✅</div>
-      <h4>Get Approved</h4>
-      <p>TIEcon team reviews and approves profiles</p>
-    </div>
-    <div class="step-item">
-      <div class="step-circle">💡</div>
-      <h4>Submit Challenge</h4>
-      <p>Industry partners describe their business challenge</p>
-    </div>
-    <div class="step-item">
-      <div class="step-circle">🤖</div>
-      <h4>AI Matches</h4>
-      <p>Our AI finds the best matching startups</p>
-    </div>
-    <div class="step-item">
-      <div class="step-circle">🤝</div>
-      <h4>Connect</h4>
-      <p>Both parties are notified and introduced</p>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  TIEcon Vadodara Matchathon · Powered by TiE · 
+  TIEcon Vadodara Match-a-Thon · Powered by TiE ·
   Support: <a href="mailto:vkvcoder.support@gmail.com">vkvcoder.support@gmail.com</a>
 </footer>
 
@@ -708,22 +466,20 @@
   const SUPABASE_URL = 'https://wrzpgultvahxbrgooibn.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyenBndWx0dmFoeGJyZ29vaWJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1Mzc2MTcsImV4cCI6MjA5MzExMzYxN30.sZM4GQiwom34d7TjeK_Jc_n8KYoC8VhI48jfq71dwb8';
 
-  // Load live stats
   async function loadStats() {
     try {
-      const [startups, industries, challenges, matches] = await Promise.all([
-        fetch(`${SUPABASE_URL}/rest/v1/tie_experts?select=id&status=eq.active`, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } }).then(r => r.json()),
-        fetch(`${SUPABASE_URL}/rest/v1/tie_industries?select=id&status=eq.active`, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } }).then(r => r.json()),
-        fetch(`${SUPABASE_URL}/rest/v1/tie_problems?select=id`, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } }).then(r => r.json()),
-        fetch(`${SUPABASE_URL}/rest/v1/tie_matches?select=id`, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } }).then(r => r.json()),
+      const h = { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY };
+      const [s, i, c, m] = await Promise.all([
+        fetch(`${SUPABASE_URL}/rest/v1/tie_experts?select=id&status=eq.active`, { headers: h }).then(r => r.json()),
+        fetch(`${SUPABASE_URL}/rest/v1/tie_industries?select=id&status=eq.active`, { headers: h }).then(r => r.json()),
+        fetch(`${SUPABASE_URL}/rest/v1/tie_problems?select=id`, { headers: h }).then(r => r.json()),
+        fetch(`${SUPABASE_URL}/rest/v1/tie_matches?select=id`, { headers: h }).then(r => r.json()),
       ]);
-
-      animateCount('statStartups', startups.length || 0);
-      animateCount('statIndustries', industries.length || 0);
-      animateCount('statChallenges', challenges.length || 0);
-      animateCount('statMatched', matches.length || 0);
+      animateCount('statStartups', s.length || 0);
+      animateCount('statIndustries', i.length || 0);
+      animateCount('statChallenges', c.length || 0);
+      animateCount('statMatched', m.length || 0);
     } catch(e) {
-      console.error('Stats load error:', e);
       ['statStartups','statIndustries','statChallenges','statMatched'].forEach(id => {
         document.getElementById(id).textContent = '0';
       });
@@ -732,24 +488,23 @@
 
   function animateCount(id, target) {
     const el = document.getElementById(id);
-    let current = 0;
-    const step = Math.max(1, Math.floor(target / 30));
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = current;
-      if (current >= target) clearInterval(timer);
+    let cur = 0;
+    const step = Math.max(1, Math.floor(target / 25));
+    const t = setInterval(() => {
+      cur = Math.min(cur + step, target);
+      el.textContent = cur;
+      if (cur >= target) clearInterval(t);
     }, 40);
   }
 
-  // Industry login
   async function handleLogin() {
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const alert = document.getElementById('loginAlert');
-    alert.classList.remove('show');
+    const alertEl = document.getElementById('loginAlert');
+    alertEl.classList.remove('show');
 
     if (!email) {
-      alert.textContent = 'Please enter your registered email.';
-      alert.classList.add('show');
+      alertEl.textContent = 'Please enter your registered email.';
+      alertEl.classList.add('show');
       return;
     }
 
@@ -768,32 +523,29 @@
       const data = await res.json();
 
       if (!data || data.length === 0) {
-        alert.textContent = 'Email not found or account not yet approved. Please register first or contact support.';
-        alert.classList.add('show');
+        alertEl.textContent = 'Email not found or not yet approved. Please register first or contact support.';
+        alertEl.classList.add('show');
         btn.disabled = false;
         spinner.classList.remove('show');
         btnText.textContent = 'Submit Challenge →';
         return;
       }
 
-      // Redirect to submit-challenge page with email
       window.location.href = `submit-challenge.html?email=${encodeURIComponent(email)}`;
 
     } catch(e) {
-      alert.textContent = 'Network error. Please try again.';
-      alert.classList.add('show');
+      alertEl.textContent = 'Network error. Please try again.';
+      alertEl.classList.add('show');
       btn.disabled = false;
       spinner.classList.remove('show');
       btnText.textContent = 'Submit Challenge →';
     }
   }
 
-  // Allow Enter on email
   document.getElementById('loginEmail').addEventListener('keydown', e => {
     if (e.key === 'Enter') handleLogin();
   });
 
-  // Load stats on page load
   loadStats();
 </script>
 </body>

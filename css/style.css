@@ -15,17 +15,17 @@ body {
 .header {
   background: #1a1a2e;
   color: white;
-  padding: 20px 24px;
+  padding: 14px 24px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 16px;
 }
 .header img {
-  height: 52px;
-  border-radius: 8px;
+  height: auto;
+  width: 260px;
+  border-radius: 0;
   flex-shrink: 0;
 }
 .header .logo {
@@ -201,7 +201,6 @@ body {
     padding: 20px;
   }
   .header img {
-    width: 200px;
-    height: auto;
+    width: 180px;
   }
 }

@@ -33,14 +33,16 @@
     /* HEADER */
     header {
       background: var(--primary);
-      padding: 16px 40px;
+      padding: 20px 40px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      gap: 10px;
     }
 
     .logo-area {
@@ -48,7 +50,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 4px;
+      gap: 6px;
     }
 
     .logo-placeholder {
@@ -341,18 +343,17 @@
 <!-- HEADER -->
 <header>
   <div class="logo-area">
-    <img src="tie-logo.jpg" style="height:90px;border-radius:8px;" alt="TiE Vadodara"/>
+    <img src="tie-logo.jpg" style="height:100px;border-radius:8px;display:block;" alt="TiE Vadodara"/>
     <div class="brand-text">
       
       <div class="sub">Match-a-Thon Platform</div>
     </div>
   </div>
-  <div class="header-badge">🤖 AI-Powered Matching</div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">✦ TIEcon Vadodara Match-a-Thon</div>
+  <div class="hero-tag">✦ TIEcon Vadodara Match-a-Thon &nbsp;|&nbsp; 🤖 AI-Powered Matching</div>
   <h1>Connect <span>Startups</span> with<br/>Industry Challenges</h1>
   <p>AI-powered matchmaking that connects innovative startups with industry partners seeking real-world solutions.</p>
 

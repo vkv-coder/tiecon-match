@@ -619,6 +619,15 @@
   document.getElementById('emailInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') verifyEmail();
   });
+  // Auto-fill email from URL param
+window.addEventListener('load', function() {
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get('email');
+  if (email) {
+    document.getElementById('emailInput').value = email;
+    verifyEmail();
+  }
+});
 </script>
 </body>
 </html>

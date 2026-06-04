@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Submit Problem — TIEcon Match</title>
+  <title>Submit Challenge — TIEcon Match-a-Thon</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -28,7 +28,6 @@
       min-height: 100vh;
     }
 
-    /* HEADER */
     header {
       background: var(--primary);
       color: white;
@@ -37,276 +36,146 @@
       align-items: center;
       gap: 14px;
     }
-    header img { height: 38px; }
     header .brand { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; }
     header .tagline { font-size: 0.78rem; color: #94a3b8; margin-top: 1px; }
 
-    /* HERO STRIP */
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%);
       color: white;
       padding: 40px 32px 36px;
       text-align: center;
     }
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
     .hero h1 span { color: var(--gold); }
     .hero p { color: #94a3b8; font-size: 0.95rem; }
 
-    /* STEPS */
     .steps {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      padding: 24px 32px 0;
-      max-width: 600px;
-      margin: 0 auto;
+      display: flex; justify-content: center; gap: 0;
+      padding: 24px 32px 0; max-width: 600px; margin: 0 auto;
     }
-    .step {
-      flex: 1;
-      text-align: center;
-      position: relative;
-    }
+    .step { flex: 1; text-align: center; position: relative; }
     .step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 16px;
-      right: -50%;
-      width: 100%;
-      height: 2px;
-      background: var(--border);
-      z-index: 0;
+      content: ''; position: absolute; top: 16px; right: -50%;
+      width: 100%; height: 2px; background: var(--border); z-index: 0;
     }
     .step.active:not(:last-child)::after { background: var(--gold); }
     .step-num {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--border);
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 0.85rem;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--border); color: var(--muted);
+      font-weight: 700; font-size: 0.85rem;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 6px;
-      position: relative; z-index: 1;
-      transition: all 0.3s;
+      margin: 0 auto 6px; position: relative; z-index: 1; transition: all 0.3s;
     }
     .step.active .step-num { background: var(--gold); color: white; }
     .step.done .step-num { background: var(--success); color: white; }
     .step-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
     .step.active .step-label { color: var(--primary); font-weight: 600; }
 
-    /* MAIN CARD */
-    .container {
-      max-width: 620px;
-      margin: 28px auto 60px;
-      padding: 0 16px;
-    }
+    .container { max-width: 620px; margin: 28px auto 60px; padding: 0 16px; }
 
     .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      overflow: hidden;
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden;
     }
 
     .card-header {
-      background: var(--primary);
-      color: white;
-      padding: 20px 28px;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      background: var(--primary); color: white;
+      padding: 20px 28px; font-family: 'Syne', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
     }
     .card-header .icon { font-size: 1.3rem; }
-
     .card-body { padding: 28px; }
 
-    /* FORM */
     .form-group { margin-bottom: 20px; }
     label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      display: block; font-size: 0.82rem; font-weight: 600;
+      color: var(--primary); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.04em;
     }
     label span.req { color: var(--accent); margin-left: 2px; }
 
-    input[type="email"],
-    input[type="text"],
-    textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text);
-      background: #fafafa;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
+    input[type="email"], input[type="text"], textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      color: var(--text); background: #fafafa;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
     }
     input:focus, textarea:focus {
       border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(244,161,29,0.12);
-      background: white;
+      box-shadow: 0 0 0 3px rgba(244,161,29,0.12); background: white;
     }
-    input[readonly] {
-      background: #f0f4f8;
-      color: var(--muted);
-      cursor: not-allowed;
-    }
+    input[readonly] { background: #f0f4f8; color: var(--muted); cursor: not-allowed; }
     textarea { resize: vertical; min-height: 110px; }
-
     .hint { font-size: 0.78rem; color: var(--muted); margin-top: 5px; }
 
-    /* VERIFY ROW */
-    .verify-row {
-      display: flex;
-      gap: 10px;
-      align-items: flex-end;
-    }
+    .verify-row { display: flex; gap: 10px; align-items: flex-end; }
     .verify-row .form-group { flex: 1; margin-bottom: 0; }
 
-    /* BUTTONS */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 8px;
+      font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; border: none; transition: all 0.2s; white-space: nowrap;
     }
-    .btn-verify {
-      background: var(--primary);
-      color: white;
-      height: 46px;
-    }
+    .btn-verify { background: var(--primary); color: white; height: 46px; }
     .btn-verify:hover { background: #1a3a5c; }
     .btn-submit {
-      background: var(--accent);
-      color: white;
-      width: 100%;
-      justify-content: center;
-      padding: 14px;
-      font-size: 1rem;
-      margin-top: 8px;
+      background: var(--accent); color: white; width: 100%;
+      justify-content: center; padding: 14px; font-size: 1rem; margin-top: 8px;
     }
     .btn-submit:hover { background: #c1121f; transform: translateY(-1px); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
-    /* ALERTS */
     .alert {
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      margin-bottom: 18px;
-      display: none;
-      align-items: flex-start;
-      gap: 10px;
+      padding: 12px 16px; border-radius: 8px; font-size: 0.88rem;
+      margin-bottom: 18px; display: none; align-items: flex-start; gap: 10px;
     }
     .alert.show { display: flex; }
     .alert-error { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
     .alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
-    .alert-info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
 
-    /* VERIFIED BANNER */
     .verified-banner {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-bottom: 22px;
-      display: none;
-      align-items: center;
-      gap: 12px;
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 22px;
+      display: none; align-items: center; gap: 12px;
     }
     .verified-banner.show { display: flex; }
     .verified-banner .vcheck { font-size: 1.4rem; }
     .verified-banner .vname { font-weight: 700; color: #166534; font-size: 0.95rem; }
     .verified-banner .vorg { font-size: 0.82rem; color: #4b5563; }
 
-    /* FORM SECTION */
-    #problemForm { display: none; }
-    #problemForm.show { display: block; }
+    #challengeForm { display: none; }
+    #challengeForm.show { display: block; }
 
-    .divider {
-      border: none;
-      border-top: 1px dashed var(--border);
-      margin: 24px 0;
-    }
+    .divider { border: none; border-top: 1px dashed var(--border); margin: 24px 0; }
 
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
     }
 
-    /* CHAR COUNT */
-    .char-count {
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-align: right;
-      margin-top: 4px;
-    }
+    .char-count { font-size: 0.75rem; color: var(--muted); text-align: right; margin-top: 4px; }
     .char-count.warn { color: var(--accent); }
 
-    /* SUCCESS STATE */
-    #successState {
-      display: none;
-      text-align: center;
-      padding: 48px 28px;
-    }
+    #successState { display: none; text-align: center; padding: 48px 28px; }
     #successState.show { display: block; }
     .success-icon { font-size: 4rem; margin-bottom: 16px; }
-    .success-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
+    .success-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
     .success-msg { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
 
-    /* SPINNER */
     .spinner {
       width: 18px; height: 18px;
       border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
+      border-top-color: white; border-radius: 50%;
+      animation: spin 0.7s linear infinite; display: none;
     }
     .spinner.show { display: inline-block; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
+    footer { text-align: center; padding: 24px; font-size: 0.78rem; color: var(--muted); }
 
     @media (max-width: 480px) {
       .hero h1 { font-size: 1.5rem; }
@@ -320,17 +189,16 @@
 
 <header>
   <div>
-    <div class="brand">TIEcon Match</div>
+    <div class="brand">TIEcon Match-a-Thon</div>
     <div class="tagline">B2B AI Matchmaking Platform</div>
   </div>
 </header>
 
 <div class="hero">
-  <h1>Submit Your <span>Problem</span></h1>
-  <p>Describe your challenge — our AI will find the best matching experts for you</p>
+  <h1>Submit Your <span>Challenge</span></h1>
+  <p>Describe your challenge — our AI will find the best matching startups for you</p>
 </div>
 
-<!-- STEPS -->
 <div class="steps" id="stepsBar">
   <div class="step active" id="step1">
     <div class="step-num">1</div>
@@ -338,7 +206,7 @@
   </div>
   <div class="step" id="step2">
     <div class="step-num">2</div>
-    <div class="step-label">Describe Problem</div>
+    <div class="step-label">Describe Challenge</div>
   </div>
   <div class="step" id="step3">
     <div class="step-num">3</div>
@@ -350,12 +218,11 @@
   <div class="card">
     <div class="card-header">
       <span class="icon">🏭</span>
-      Industry Partner — Problem Submission
+      Industry Partner — Challenge Submission
     </div>
 
     <div class="card-body">
 
-      <!-- ALERTS -->
       <div class="alert alert-error" id="alertError">
         <span>⚠️</span><span id="alertErrorMsg">Error</span>
       </div>
@@ -366,7 +233,7 @@
       <!-- STEP 1: EMAIL VERIFY -->
       <div id="verifySection">
         <p style="font-size:0.9rem; color:var(--muted); margin-bottom:18px;">
-          Enter your registered email to access the problem submission form.
+          Enter your registered email to access the challenge submission form.
         </p>
         <div class="verify-row">
           <div class="form-group">
@@ -390,10 +257,10 @@
         </div>
       </div>
 
-      <!-- STEP 2: PROBLEM FORM -->
-      <div id="problemForm">
+      <!-- STEP 2: CHALLENGE FORM -->
+      <div id="challengeForm">
         <hr class="divider"/>
-        <div class="section-title">📋 Problem Details</div>
+        <div class="section-title">📋 Challenge Details</div>
 
         <div class="form-group">
           <label>Your Name</label>
@@ -406,8 +273,8 @@
         </div>
 
         <div class="form-group">
-          <label>Problem Description <span class="req">*</span></label>
-          <textarea id="fieldDescription" placeholder="Describe the business problem or challenge you are facing. Be as specific as possible — what is the issue, what have you tried, what are the constraints?" maxlength="1000" oninput="updateChar('fieldDescription','descCount',1000)"></textarea>
+          <label>Challenge Description <span class="req">*</span></label>
+          <textarea id="fieldDescription" placeholder="Describe the business challenge you are facing. Be as specific as possible — what is the issue, what have you tried, what are the constraints?" maxlength="1000" oninput="updateChar('fieldDescription','descCount',1000)"></textarea>
           <div class="char-count" id="descCount">0 / 1000</div>
           <p class="hint">Min 50 characters. The more detail, the better the match.</p>
         </div>
@@ -418,19 +285,19 @@
           <div class="char-count" id="outCount">0 / 500</div>
         </div>
 
-        <button class="btn btn-submit" id="submitBtn" onclick="submitProblem()">
+        <button class="btn btn-submit" id="submitBtn" onclick="submitChallenge()">
           <span class="spinner" id="submitSpinner"></span>
-          <span id="submitBtnText">🚀 Submit Problem</span>
+          <span id="submitBtnText">🚀 Submit Challenge</span>
         </button>
       </div>
 
       <!-- SUCCESS STATE -->
       <div id="successState">
         <div class="success-icon">🎯</div>
-        <div class="success-title">Problem Submitted!</div>
+        <div class="success-title">Challenge Submitted!</div>
         <p class="success-msg">
-          Thank you! Your problem has been received.<br/><br/>
-          Our team will review it and our AI will match you with the best experts.<br/>
+          Thank you! Your challenge has been received.<br/><br/>
+          Our team will review it and our AI will match you with the best startups.<br/>
           You will be notified by email once matches are found.
         </p>
       </div>
@@ -440,7 +307,7 @@
 </div>
 
 <footer>
-  TIEcon Match · Powered by TiE · Support: vkvcoder.support@gmail.com
+  TIEcon Match-a-Thon · Powered by TiE · Support: vkvcoder.support@gmail.com
 </footer>
 
 <script>
@@ -454,12 +321,6 @@
     document.getElementById('alertErrorMsg').textContent = msg;
     document.getElementById('alertError').classList.add('show');
     document.getElementById('alertSuccess').classList.remove('show');
-  }
-
-  function showSuccess(msg) {
-    document.getElementById('alertSuccessMsg').textContent = msg;
-    document.getElementById('alertSuccess').classList.add('show');
-    document.getElementById('alertError').classList.remove('show');
   }
 
   function clearAlerts() {
@@ -498,12 +359,7 @@
     try {
       const res = await fetch(
         `${SUPABASE_URL}/rest/v1/tie_industries?email=eq.${encodeURIComponent(email)}&status=eq.active&select=id,name,organisation,email,phone`,
-        {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_KEY
-          }
-        }
+        { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
       );
       const data = await res.json();
 
@@ -516,20 +372,13 @@
       }
 
       industryData = data[0];
-
-      // Show verified banner
       document.getElementById('verifiedName').textContent = '✓ ' + industryData.name;
       document.getElementById('verifiedOrg').textContent = industryData.organisation;
       document.getElementById('verifiedBanner').classList.add('show');
-
-      // Pre-fill form
       document.getElementById('fieldName').value = industryData.name;
       document.getElementById('fieldOrg').value = industryData.organisation;
-
-      // Show form, hide verify section
       document.getElementById('verifySection').style.display = 'none';
-      document.getElementById('problemForm').classList.add('show');
-
+      document.getElementById('challengeForm').classList.add('show');
       setStep(2);
 
     } catch(e) {
@@ -540,14 +389,13 @@
     }
   }
 
-  async function submitProblem() {
+  async function submitChallenge() {
     clearAlerts();
-
     const description = document.getElementById('fieldDescription').value.trim();
     const outcome = document.getElementById('fieldOutcome').value.trim();
 
     if (!description || description.length < 50) {
-      showError('Please describe your problem in at least 50 characters.');
+      showError('Please describe your challenge in at least 50 characters.');
       return;
     }
     if (!outcome) {
@@ -563,7 +411,6 @@
     btnText.textContent = 'Submitting...';
 
     try {
-      // Insert into tie_problems
       const res = await fetch(`${SUPABASE_URL}/rest/v1/tie_problems`, {
         method: 'POST',
         headers: {
@@ -581,28 +428,16 @@
       });
 
       const result = await res.json();
+      if (!res.ok) throw new Error(result.message || result.error || 'Submission failed');
 
-      if (!res.ok) {
-        throw new Error(result.message || result.error || 'Submission failed');
-      }
-
-      // Send acknowledgement email via AppScript
       try {
         await fetch(APPSCRIPT_URL, {
           method: 'POST',
-          body: JSON.stringify({
-            name: industryData.name,
-            email: industryData.email,
-            type: 'problem'
-          })
+          body: JSON.stringify({ name: industryData.name, email: industryData.email, type: 'problem' })
         });
-      } catch(e) {
-        // Email failure is non-blocking
-        console.warn('Email notification failed:', e);
-      }
+      } catch(e) { console.warn('Email notification failed:', e); }
 
-      // Show success
-      document.getElementById('problemForm').classList.remove('show');
+      document.getElementById('challengeForm').classList.remove('show');
       document.getElementById('verifiedBanner').classList.remove('show');
       document.getElementById('successState').classList.add('show');
       setStep(3);
@@ -611,23 +446,22 @@
       showError('Submission failed: ' + e.message);
       btn.disabled = false;
       spinner.classList.remove('show');
-      btnText.textContent = '🚀 Submit Problem';
+      btnText.textContent = '🚀 Submit Challenge';
     }
   }
 
-  // Allow Enter key on email field
   document.getElementById('emailInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') verifyEmail();
   });
-  // Auto-fill email from URL param
-window.addEventListener('load', function() {
-  const params = new URLSearchParams(window.location.search);
-  const email = params.get('email');
-  if (email) {
-    document.getElementById('emailInput').value = email;
-    verifyEmail();
-  }
-});
+
+  window.addEventListener('load', function() {
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get('email');
+    if (email) {
+      document.getElementById('emailInput').value = email;
+      verifyEmail();
+    }
+  });
 </script>
 </body>
 </html>

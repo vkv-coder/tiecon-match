@@ -201,6 +201,7 @@ body {
     padding: 20px;
   }
   .header img {
-    height: 44px;
+    width: 200px;
+    height: auto;
   }
 }

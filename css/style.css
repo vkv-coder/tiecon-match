@@ -15,18 +15,21 @@ body {
 .header {
   background: #1a1a2e;
   color: white;
-  padding: 14px 24px;
+  padding: 10px 24px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
+  overflow: visible;
+  min-height: unset;
 }
 .header img {
   height: auto;
-  width: 300px;
+  width: 220px;
   border-radius: 0;
   flex-shrink: 0;
+  display: block;
 }
 .header .logo {
   font-size: 20px;
@@ -37,8 +40,7 @@ body {
 .header .tagline {
   font-size: 13px;
   color: #aaa;
-}
-/* Page container */
+}/* Page container */
 .container {
   max-width: 720px;
   margin: 40px auto;

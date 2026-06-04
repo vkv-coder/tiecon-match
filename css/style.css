@@ -1,31 +1,31 @@
 /* TIEcon Matchmaking Platform */
 /* css/style.css — Common styles for all pages */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f5f7fa;
   color: #333;
   min-height: 100vh;
 }
-
 /* Header */
 .header {
   background: #1a1a2e;
   color: white;
-  padding: 16px 24px;
+  padding: 20px 24px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
 }
 .header img {
-  height: 60px;
-  border-radius: 6px;
+  height: 90px;
+  border-radius: 8px;
   flex-shrink: 0;
 }
 .header .logo {
@@ -44,7 +44,6 @@ body {
   margin: 40px auto;
   padding: 0 20px;
 }
-
 /* Card */
 .card {
   background: white;
@@ -53,24 +52,20 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   margin-bottom: 24px;
 }
-
 .card h2 {
   font-size: 22px;
   color: #1a1a2e;
   margin-bottom: 8px;
 }
-
 .card .subtitle {
   font-size: 14px;
   color: #666;
   margin-bottom: 28px;
 }
-
 /* Form elements */
 .form-group {
   margin-bottom: 20px;
 }
-
 .form-group label {
   display: block;
   font-size: 14px;
@@ -78,7 +73,6 @@ body {
   color: #444;
   margin-bottom: 6px;
 }
-
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -92,19 +86,16 @@ body {
   transition: border 0.2s;
   outline: none;
 }
-
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: #e94560;
   background: white;
 }
-
 .form-group textarea {
   min-height: 100px;
   resize: vertical;
 }
-
 /* Tags / checkboxes */
 .tag-grid {
   display: flex;
@@ -112,7 +103,6 @@ body {
   gap: 10px;
   margin-top: 6px;
 }
-
 .tag-item {
   display: flex;
   align-items: center;
@@ -125,19 +115,16 @@ body {
   cursor: pointer;
   transition: all 0.2s;
 }
-
 .tag-item input[type="checkbox"] {
   width: auto;
   accent-color: #e94560;
 }
-
 .tag-item:has(input:checked) {
   background: #fff0f3;
   border-color: #e94560;
   color: #e94560;
   font-weight: 600;
 }
-
 /* Buttons */
 .btn {
   display: inline-block;
@@ -150,23 +137,19 @@ body {
   transition: all 0.2s;
   text-decoration: none;
 }
-
 .btn-primary {
   background: #e94560;
   color: white;
   width: 100%;
   text-align: center;
 }
-
 .btn-primary:hover {
   background: #c73652;
 }
-
 .btn-secondary {
   background: #1a1a2e;
   color: white;
 }
-
 /* Status messages */
 .msg {
   padding: 14px 18px;
@@ -175,24 +158,20 @@ body {
   margin-top: 16px;
   display: none;
 }
-
 .msg.success {
   background: #e8f5e9;
   color: #2e7d32;
   border-left: 4px solid #2e7d32;
 }
-
 .msg.error {
   background: #ffebee;
   color: #c62828;
   border-left: 4px solid #c62828;
 }
-
 /* Required star */
 .required {
   color: #e94560;
 }
-
 /* Step indicator */
 .steps {
   display: flex;
@@ -201,12 +180,10 @@ body {
   font-size: 13px;
   color: #aaa;
 }
-
 .steps .active {
   color: #e94560;
   font-weight: 700;
 }
-
 /* Footer */
 .footer {
   text-align: center;
@@ -214,7 +191,6 @@ body {
   font-size: 13px;
   color: #aaa;
 }
-
 /* Mobile responsive */
 @media (max-width: 600px) {
   .container {
@@ -223,5 +199,8 @@ body {
   }
   .card {
     padding: 20px;
+  }
+  .header img {
+    height: 70px;
   }
 }

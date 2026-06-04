@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expert Registration — TIEcon Match</title>
+  <title>Startup Registration — TIEcon Match-a-Thon</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
     .success-box {
@@ -33,15 +33,15 @@
 
 <div class="header">
   <div>
-    <div class="logo">TIEcon Match</div>
-    <div class="tagline">Connecting Industry Problems with Expert Solutions</div>
+    <div class="logo">TIEcon Match-a-Thon</div>
+    <div class="tagline">Connecting Industry Challenges with Startup Solutions</div>
   </div>
 </div>
 
 <div class="container">
   <div class="card">
-    <h2>Expert / Startup Registration</h2>
-    <p class="subtitle">Register as a solution provider. Your profile will be reviewed and activated by our team before going live.</p>
+    <h2>Startup Registration</h2>
+    <p class="subtitle">Register your startup as a solution provider. Your profile will be reviewed and activated by our team before going live.</p>
 
     <div class="form-group">
       <label>Full Name <span class="required">*</span></label>
@@ -49,13 +49,13 @@
     </div>
 
     <div class="form-group">
-      <label>Organisation / Startup Name</label>
-      <input type="text" id="organisation" placeholder="Company or startup name">
+      <label>Startup / Organisation Name</label>
+      <input type="text" id="organisation" placeholder="Your startup or company name">
     </div>
 
     <div class="form-group">
       <label>Designation</label>
-      <input type="text" id="designation" placeholder="e.g. Founder, CEO, Consultant">
+      <input type="text" id="designation" placeholder="e.g. Founder, CEO, Co-Founder">
     </div>
 
     <div class="form-group">
@@ -102,7 +102,7 @@
     </div>
 
     <div class="form-group">
-      <label>Problem Areas You Can Solve <span class="required">*</span></label>
+      <label>Challenge Areas You Can Solve <span class="required">*</span></label>
       <p style="font-size:13px;color:#888;margin-bottom:8px;">Select all that apply</p>
       <div class="tag-grid" id="domainGrid">
         <p style="color:#aaa;font-size:13px;">Loading...</p>
@@ -110,25 +110,25 @@
     </div>
 
     <div class="form-group">
-      <label>Describe Your Expertise <span class="required">*</span></label>
-      <textarea id="description" placeholder="Tell us about your expertise, past work, technologies you use, and types of problems you have solved..."></textarea>
+      <label>Describe Your Startup & Expertise <span class="required">*</span></label>
+      <textarea id="description" placeholder="Tell us about your startup, past work, technologies you use, and types of challenges you have solved..."></textarea>
     </div>
 
     <div class="form-group">
-      <label>Suggest a New Problem Domain (optional)</label>
+      <label>Suggest a New Challenge Domain (optional)</label>
       <input type="text" id="suggestedDomain" placeholder="If your area is not listed above, suggest here">
     </div>
 
-    <button class="btn btn-primary" onclick="submitExpert()">Submit Registration</button>
+    <button class="btn btn-primary" onclick="submitStartup()">Submit Registration</button>
 
     <div class="success-box" id="successMsg">
-      ✅ Thank you! Your registration has been received. Our team will review and contact you within 2-3 working days. A confirmation email has been sent to your inbox.
+      ✅ Thank you! Your startup registration has been received. Our team will review and contact you within 2-3 working days. A confirmation email has been sent to your inbox.
     </div>
     <div class="error-box" id="errorMsg"></div>
   </div>
 
   <div class="footer">
-    Are you an Industry with a problem to solve?
+    Are you an Industry with a challenge to solve?
     <a href="register-industry.html" style="color:#e94560;">Register here →</a>
   </div>
 </div>
@@ -188,7 +188,7 @@
     set.has(id) ? set.delete(id) : set.add(id);
   }
 
-  async function submitExpert() {
+  async function submitStartup() {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -203,7 +203,7 @@
       return;
     }
     if (selectedDomains.size === 0) {
-      showError('Please select at least one problem domain.');
+      showError('Please select at least one challenge domain.');
       return;
     }
 
@@ -237,22 +237,16 @@
       return;
     }
 
-    // Insert tags
     const tags = [];
     selectedIndustries.forEach(ind => {
       selectedDomains.forEach(dom => {
-        tags.push({
-          expert_id: expert.id,
-          industry_type_id: ind,
-          problem_domain_id: dom
-        });
+        tags.push({ expert_id: expert.id, industry_type_id: ind, problem_domain_id: dom });
       });
     });
     if (tags.length > 0) {
       await db.from('tie_expert_tags').insert(tags);
     }
 
-    // Send acknowledgement email
     try {
       await fetch(CONFIG.APPS_SCRIPT_URL, {
         method: 'POST',
@@ -260,11 +254,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, type: 'expert' })
       });
-    } catch(e) {
-      console.log('Email send error:', e);
-    }
+    } catch(e) { console.log('Email send error:', e); }
 
-    // Show success
     document.querySelector('.card').style.opacity = '0.5';
     document.getElementById('successMsg').style.display = 'block';
     btn.textContent = 'Submitted ✓';

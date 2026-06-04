@@ -30,6 +30,8 @@ body {
   border-radius: 0;
   flex-shrink: 0;
   display: block;
+  background: white;
+  padding: 4px;
 }
 .header .logo {
   font-size: 20px;

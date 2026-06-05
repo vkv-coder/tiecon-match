@@ -42,7 +42,8 @@ body {
 .header .tagline {
   font-size: 13px;
   color: #aaa;
-}/* Page container */
+}
+/* Page container */
 .container {
   max-width: 720px;
   margin: 40px auto;
@@ -205,6 +206,9 @@ body {
     padding: 20px;
   }
   .header img {
-    width: 180px;
+    height: 48px;
+    width: auto;
+    max-width: 55%;
+    object-fit: contain;
   }
 }

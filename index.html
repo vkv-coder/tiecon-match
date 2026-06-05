@@ -33,43 +33,43 @@
     /* HEADER */
     header {
       background: var(--primary);
-      padding: 20px 40px;
+      padding: 14px 32px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      gap: 10px;
     }
 
-    .logo-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 6px;
+    .header-logo {
+      height: auto;
+      width: 280px;
+      display: block;
+      flex-shrink: 0;
     }
 
-    .logo-placeholder {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      background: rgba(244,161,29,0.15);
-      border: 2px dashed rgba(244,161,29,0.5);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.55rem; color: var(--gold);
-      text-align: center; line-height: 1.2;
-      font-weight: 600; letter-spacing: 0.03em;
+    .header-text {
+      text-align: right;
+      flex-shrink: 0;
     }
 
-    .brand-text .sub { font-size: 0.75rem; color: #94a3b8; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+    .header-text .title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #f4a11d;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-    .header-badge {
-      background: var(--gold); color: var(--primary);
-      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700;
-      padding: 5px 12px; border-radius: 20px; letter-spacing: 0.04em;
+    .header-text .sub {
+      font-size: 0.68rem;
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 2px;
     }
 
     /* HERO */
@@ -319,10 +319,41 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* MOBILE */
+    /* ── MOBILE ── */
     @media (max-width: 600px) {
-      header { padding: 0 16px; height: 52px; }
-      .header-badge { display: none; }
+
+      /* Header fix — logo + text side by side without overlap */
+      header {
+        padding: 10px 14px;
+        gap: 8px;
+      }
+
+      .header-logo {
+        width: auto;
+        max-width: 52%;   /* logo takes at most half the header */
+        height: 36px;
+        object-fit: contain;
+        object-position: left center;
+      }
+
+      .header-text {
+        flex: 1;
+        text-align: right;
+      }
+
+      .header-text .title {
+        font-size: 0.65rem;
+        letter-spacing: 0.03em;
+        line-height: 1.3;
+      }
+
+      .header-text .sub {
+        font-size: 0.55rem;
+        letter-spacing: 0.02em;
+        margin-top: 1px;
+      }
+
+      /* Rest of mobile styles unchanged */
       .hero { padding: 36px 16px 52px; }
       .stats-strip { flex-wrap: wrap; }
       .stat { flex: 1 1 45%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 14px 8px; }
@@ -341,11 +372,11 @@
 <body>
 
 <!-- HEADER -->
-<header style="background:#0a2540;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.3);position:sticky;top:0;z-index:100;">
-  <img src="tie2-logo.jpg" alt="TiE Vadodara" style="height:auto;width:280px;display:block;">
-  <div style="text-align:right;">
-    <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:800;color:#f4a11d;letter-spacing:0.06em;text-transform:uppercase;">Match-a-Thon Platform</div>
-    <div style="font-size:0.68rem;color:#94a3b8;letter-spacing:0.04em;text-transform:uppercase;margin-top:2px;">AI-Powered Matchmaking</div>
+<header>
+  <img src="tie2-logo.jpg" alt="TiE Vadodara" class="header-logo">
+  <div class="header-text">
+    <div class="title">Match-a-Thon Platform</div>
+    <div class="sub">AI-Powered Matchmaking</div>
   </div>
 </header>
 

@@ -31,6 +31,11 @@
   </div>
 </div>
 
+<div class="page-tabs">
+  <span class="page-tab active">🚀 Startup Registration</span>
+  <a href="register-industry.html" class="page-tab">🏭 Industry Registration</a>
+</div>
+
 <div class="container">
   <div class="card">
     <h2>Startup Registration</h2>
@@ -134,26 +139,45 @@
       ✅ Thank you! Your startup registration has been received. Our team will review and contact you within 2-3 working days. A confirmation email has been sent to your inbox.
     </div>
     <div class="error-box" id="errorMsg"></div>
-  </div>
 
-  <div class="footer">
-    Are you an Industry with a challenge to solve?
-    <a href="register-industry.html" style="color:#e63946;">Register here →</a>
+    <div class="receipt-box" id="receiptBox">
+      <div class="receipt-header">
+        <img src="TiE_Vadodara_safe_margin.png" alt="TiE Vadodara">
+        <div>
+          <div class="receipt-title">TIEcon Match-a-Thon — Registration Confirmation</div>
+          <div class="receipt-sub" id="receiptSub"></div>
+        </div>
+      </div>
+      <div class="receipt-meta">
+        <span>Reference ID: <strong id="receiptRefId"></strong></span>
+        <span>Submitted: <strong id="receiptDate"></strong></span>
+      </div>
+      <div id="receiptFields"></div>
+      <div class="receipt-actions no-print">
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
+        <button class="btn btn-secondary" onclick="downloadReceiptPDF()">⬇️ Download PDF</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="js/config.js"></script>
+<script src="js/receipt.js"></script>
 <script>
   const { createClient } = window.supabase;
   const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
   const selectedIndustries = new Set();
   const selectedDomains = new Set();
+  const industryNameMap = {};
+  const domainNameMap = {};
 
   async function loadIndustries() {
     const { data, error } = await db.from('tie_industry_types').select('id, name').eq('is_active', true).order('name');
     const grid = document.getElementById('industryGrid');
     if (error || !data || !data.length) { grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load. Please refresh.</p>'; return; }
+    data.forEach(item => { industryNameMap[item.id] = item.name; });
     grid.innerHTML = data.map(item => `<label class="tag-item"><input type="checkbox" value="${item.id}" onchange="toggleItem('industry', '${item.id}')">${item.name}</label>`).join('');
   }
 
@@ -161,6 +185,7 @@
     const { data, error } = await db.from('tie_problem_domains').select('id, name').eq('is_active', true).order('name');
     const grid = document.getElementById('domainGrid');
     if (error || !data || !data.length) { grid.innerHTML = '<p style="color:red;font-size:13px;">Could not load. Please refresh.</p>'; return; }
+    data.forEach(item => { domainNameMap[item.id] = item.name; });
     grid.innerHTML = data.map(item => `<label class="tag-item"><input type="checkbox" value="${item.id}" onchange="toggleItem('domain', '${item.id}')">${item.name}</label>`).join('');
   }
 
@@ -210,6 +235,29 @@
     try {
       await fetch(CONFIG.APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, type: 'expert' }) });
     } catch(e) { console.log('Email send error:', e); }
+
+    showReceipt(expert.id, 'Startup Registration Record', {
+      'Full Name': name,
+      'Startup / Organisation': document.getElementById('organisation').value.trim(),
+      'Designation': document.getElementById('designation').value.trim(),
+      'Email': email,
+      'Phone': phone,
+      'City': document.getElementById('city').value.trim(),
+      'State': document.getElementById('state').value,
+      'LinkedIn / Website': document.getElementById('linkedinUrl').value.trim(),
+      'WhatsApp': document.getElementById('whatsapp').value.trim(),
+      'Startup Stage': document.getElementById('stage').value,
+      'Industries You Serve': [...selectedIndustries].map(id => industryNameMap[id]).filter(Boolean).join(', '),
+      'Challenge Areas You Can Solve': [...selectedDomains].map(id => domainNameMap[id]).filter(Boolean).join(', '),
+      'Description': description,
+      'Suggested Domain': document.getElementById('suggestedDomain').value.trim(),
+      'Pitch Deck Link': document.getElementById('pitchDeckUrl').value.trim(),
+      'Special Category': [
+        document.getElementById('isStudentLed').checked ? 'Student-Led' : '',
+        document.getElementById('isWomenLed').checked ? 'Women-Led' : '',
+        document.getElementById('isServiceProvider').checked ? 'Service Provider' : ''
+      ].filter(Boolean).join(', ')
+    });
 
     document.querySelector('.card').style.opacity = '0.5';
     document.getElementById('successMsg').style.display = 'block';

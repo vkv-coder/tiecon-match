@@ -22,6 +22,11 @@
   </div>
 </div>
 
+<div class="page-tabs">
+  <a href="register-startup.html" class="page-tab">🚀 Startup Registration</a>
+  <span class="page-tab active">🏭 Industry Registration</span>
+</div>
+
 <div class="container">
   <div class="card">
     <h2>Industry / Organisation Registration</h2>
@@ -102,16 +107,32 @@
       ✅ Thank you! Your registration has been received. Our team will review and activate your account within 2-3 working days. A confirmation email has been sent to your inbox.
     </div>
     <div class="error-box" id="errorMsg"></div>
-  </div>
 
-  <div class="footer">
-    Are you a Startup?
-    <a href="register-startup.html" style="color:#e63946;">Register here →</a>
+    <div class="receipt-box" id="receiptBox">
+      <div class="receipt-header">
+        <img src="TiE_Vadodara_safe_margin.png" alt="TiE Vadodara">
+        <div>
+          <div class="receipt-title">TIEcon Match-a-Thon — Registration Confirmation</div>
+          <div class="receipt-sub" id="receiptSub"></div>
+        </div>
+      </div>
+      <div class="receipt-meta">
+        <span>Reference ID: <strong id="receiptRefId"></strong></span>
+        <span>Submitted: <strong id="receiptDate"></strong></span>
+      </div>
+      <div id="receiptFields"></div>
+      <div class="receipt-actions no-print">
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
+        <button class="btn btn-secondary" onclick="downloadReceiptPDF()">⬇️ Download PDF</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="js/config.js"></script>
+<script src="js/receipt.js"></script>
 <script>
   const { createClient } = window.supabase;
   const db = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
@@ -167,6 +188,25 @@
     try {
       await fetch(CONFIG.APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, type: 'industry' }) });
     } catch(e) { console.log('Email send error:', e); }
+
+    const primarySelect = document.getElementById('industryType');
+    const secondarySelect = document.getElementById('industryTypeSecondary');
+
+    showReceipt(data.id, 'Industry Registration Record', {
+      'Full Name': name,
+      'Organisation': organisation,
+      'Designation': designation,
+      'Email': email,
+      'Phone': phone,
+      'City': document.getElementById('city').value.trim(),
+      'State': document.getElementById('state').value,
+      'LinkedIn / Website': document.getElementById('linkedinUrl').value.trim(),
+      'WhatsApp': document.getElementById('whatsapp').value.trim(),
+      'Challenge Timeline / Urgency': document.getElementById('timeline').value,
+      'Budget Range': document.getElementById('budgetRange').value.trim(),
+      'Primary Industry Type': primarySelect.options[primarySelect.selectedIndex].text,
+      'Secondary Industry Type': industryTypeSecondary ? secondarySelect.options[secondarySelect.selectedIndex].text : ''
+    });
 
     document.querySelector('.card').style.opacity = '0.5';
     document.getElementById('successMsg').style.display = 'block';

@@ -80,6 +80,23 @@
       </select>
     </div>
     <div class="form-group">
+      <label>LinkedIn / Website</label>
+      <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/in/... or company site">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp Number</label>
+      <input type="tel" id="whatsapp" placeholder="10-digit WhatsApp number (if different from phone)">
+    </div>
+    <div class="form-group">
+      <label>Startup Stage</label>
+      <select id="stage">
+        <option value="">-- Select Stage --</option>
+        <option value="idea">Idea Stage</option>
+        <option value="early-revenue">Early Revenue</option>
+        <option value="scaling">Scaling</option>
+      </select>
+    </div>
+    <div class="form-group">
       <label>Industries You Serve <span class="required">*</span></label>
       <p style="font-size:13px;color:#888;margin-bottom:8px;">Select all that apply</p>
       <div class="tag-grid" id="industryGrid"><p style="color:#aaa;font-size:13px;">Loading...</p></div>
@@ -97,6 +114,19 @@
       <label>Suggest a New Challenge Domain (optional)</label>
       <input type="text" id="suggestedDomain" placeholder="If your area is not listed above, suggest here">
     </div>
+    <div class="form-group">
+      <label>Pitch Deck Link (optional)</label>
+      <p style="font-size:13px;color:#888;margin-bottom:8px;">Paste a Google Drive / Dropbox / public link to your deck — no file upload needed</p>
+      <input type="url" id="pitchDeckUrl" placeholder="https://drive.google.com/...">
+    </div>
+    <div class="form-group">
+      <label>Which of these apply to you? (optional)</label>
+      <div class="tag-grid">
+        <label class="tag-item"><input type="checkbox" id="isStudentLed">Student-Led Startup</label>
+        <label class="tag-item"><input type="checkbox" id="isWomenLed">Women-Led Startup</label>
+        <label class="tag-item"><input type="checkbox" id="isServiceProvider">Startup Consulting / Fundraising Services (Service Provider)</label>
+      </div>
+    </div>
 
     <button class="btn btn-primary" onclick="submitStartup()">Submit Registration</button>
 
@@ -108,7 +138,7 @@
 
   <div class="footer">
     Are you an Industry with a challenge to solve?
-    <a href="register-industry.html" style="color:#e94560;">Register here →</a>
+    <a href="register-industry.html" style="color:#e63946;">Register here →</a>
   </div>
 </div>
 
@@ -157,7 +187,15 @@
       designation: document.getElementById('designation').value.trim(),
       email, phone, city: document.getElementById('city').value.trim(),
       state: document.getElementById('state').value,
-      description, suggested_domain: document.getElementById('suggestedDomain').value.trim(), status: 'pending'
+      description, suggested_domain: document.getElementById('suggestedDomain').value.trim(),
+      linkedin_url: document.getElementById('linkedinUrl').value.trim(),
+      whatsapp: document.getElementById('whatsapp').value.trim(),
+      stage: document.getElementById('stage').value,
+      pitch_deck_url: document.getElementById('pitchDeckUrl').value.trim(),
+      is_student_led: document.getElementById('isStudentLed').checked,
+      is_women_led: document.getElementById('isWomenLed').checked,
+      is_service_provider: document.getElementById('isServiceProvider').checked,
+      status: 'pending'
     }]).select('id').single();
 
     if (expertError) {

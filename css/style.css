@@ -13,8 +13,8 @@ body {
 }
 /* Header */
 .header {
-  background: #1a1a2e;
-  color: white;
+  background: #ffffff;
+  color: #0a2540;
   padding: 10px 24px;
   display: flex;
   flex-direction: row;
@@ -23,6 +23,7 @@ body {
   gap: 16px;
   overflow: visible;
   min-height: unset;
+  border-bottom: 3px solid #e63946;
 }
 .header img {
   height: auto;
@@ -30,18 +31,16 @@ body {
   border-radius: 0;
   flex-shrink: 0;
   display: block;
-  background: white;
-  padding: 4px;
 }
 .header .logo {
   font-size: 20px;
   font-weight: 700;
-  color: #e94560;
+  color: #e63946;
   letter-spacing: 1px;
 }
 .header .tagline {
   font-size: 13px;
-  color: #aaa;
+  color: #555;
 }
 /* Page container */
 .container {
@@ -94,7 +93,7 @@ body {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #e94560;
+  border-color: #e63946;
   background: white;
 }
 .form-group textarea {
@@ -122,12 +121,12 @@ body {
 }
 .tag-item input[type="checkbox"] {
   width: auto;
-  accent-color: #e94560;
+  accent-color: #e63946;
 }
 .tag-item:has(input:checked) {
   background: #fff0f3;
-  border-color: #e94560;
-  color: #e94560;
+  border-color: #e63946;
+  color: #e63946;
   font-weight: 600;
 }
 /* Buttons */
@@ -143,13 +142,13 @@ body {
   text-decoration: none;
 }
 .btn-primary {
-  background: #e94560;
+  background: #e63946;
   color: white;
   width: 100%;
   text-align: center;
 }
 .btn-primary:hover {
-  background: #c73652;
+  background: #c62838;
 }
 .btn-secondary {
   background: #1a1a2e;
@@ -175,7 +174,7 @@ body {
 }
 /* Required star */
 .required {
-  color: #e94560;
+  color: #e63946;
 }
 /* Step indicator */
 .steps {
@@ -186,7 +185,7 @@ body {
   color: #aaa;
 }
 .steps .active {
-  color: #e94560;
+  color: #e63946;
   font-weight: 700;
 }
 /* Footer */

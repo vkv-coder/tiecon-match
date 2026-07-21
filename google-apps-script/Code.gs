@@ -1,17 +1,22 @@
-// TIEcon Match — Admin Google Sheet Sync v6
+// TIEcon Match — Admin Google Sheet Sync v7
 // Startup (was Expert), Challenge (was Problem), Match-a-Thon
 //
-// v6 changes vs the deployed v5: pullExperts() and pullIndustries() now also
-// pull the new profile fields added by the July 2026 review-doc update
+// v7 changes vs v6: doPost() now also calls notifyAdminsOfSubmission(),
+// which instantly emails everyone in ADMIN_NOTIFY_EMAILS whenever a
+// startup/industry registration or challenge is submitted (the same
+// moment the submitter gets their "thank you" email). This list is
+// separate from ADMIN_EMAIL and from Google Sheet access - adding an
+// address here only makes them receive the instant notification, it
+// does NOT give them Sheet access or approval ability.
+//
+// v6 changes vs v5: pullExperts() and pullIndustries() now also pull the
+// new profile fields added by the July 2026 review-doc update
 // (LinkedIn/Website, WhatsApp, Stage, Pitch Deck Link, Special Category on
 // STARTUPS; LinkedIn/Website, WhatsApp, Timeline, Budget Range, Secondary
 // Industry Type on INDUSTRIES). "Special Category" combines the three
 // checkbox flags (Student-Led / Women-Led / Service Provider) into one
 // comma-joined column, same pattern as the existing Industries/Problem
 // Domains columns, instead of a separate Yes/No column per flag.
-// Nothing else changed — pushExpertApprovals/pushIndustryApprovals/
-// pushProblemApprovals, matching, notify, and all other functions are
-// identical to v5.
 //
 // Before deploying: add the new column headers (exact text, case-sensitive)
 // to the live Google Sheet tabs:
@@ -29,6 +34,10 @@ const INDUSTRIES_TAB = 'INDUSTRIES';
 const PROBLEMS_TAB = 'CHALLENGES';
 const MATCHES_TAB = 'MATCHES';
 const ADMIN_EMAIL = 'unigoods2026@gmail.com';
+// Emails notified the instant someone submits a registration or challenge.
+// Add/remove addresses here to change who gets notified - no other code
+// changes needed.
+const ADMIN_NOTIFY_EMAILS = ['unigoods2026@gmail.com', 'chandni8616@gmail.com'];
 
 // =============================================
 // HEADER HELPER
@@ -789,6 +798,8 @@ function doPost(e) {
 
     GmailApp.sendEmail(email, subject, body, { name: platformName });
 
+    notifyAdminsOfSubmission(name, email, type);
+
     return ContentService
       .createTextOutput(JSON.stringify({ success: true }))
       .setMimeType(ContentService.MimeType.JSON);
@@ -798,6 +809,26 @@ function doPost(e) {
       .createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+// =============================================
+// NOTIFY ADMINS — fires instantly on every submission
+// =============================================
+
+function notifyAdminsOfSubmission(name, email, type) {
+  const typeLabel = type === 'problem' ? 'Challenge Submission'
+    : type === 'industry' ? 'Industry Registration'
+    : 'Startup Registration';
+
+  const subject = `🔔 New ${typeLabel} — ${name}`;
+  const body = `A new ${typeLabel.toLowerCase()} was just submitted on TIEcon Match-a-Thon.\n\n`
+    + `Name: ${name}\nEmail: ${email}\n\n`
+    + `Full details will appear in the Google Sheet within 30 minutes (or run "pullAllFromSupabase" manually to fetch it now), where you can review and approve it.`;
+
+  ADMIN_NOTIFY_EMAILS.forEach(addr => {
+    try { GmailApp.sendEmail(addr, subject, body); }
+    catch(e) { Logger.log('Admin notify error: ' + e); }
+  });
 }
 
 // =============================================
